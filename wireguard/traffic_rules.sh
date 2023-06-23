@@ -29,7 +29,7 @@ get_lan_prefix() {
 }
 
 get_wan_prefix() {
-  wan="$(nvram get wan_ifname)"
+  wan="$(ip route | grep 'default via' | awk '{print $5}')"
   prefix="$(ip addr show "$wan" | grep -E '^ +inet' | awk '{print $2}')"
 
   echo "$prefix"
